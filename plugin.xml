@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="com.phonegap.plugins.video"
+        version="0.0.1">
+
+    <name>VideoPlay</name>
+    <description>VideoPlay for cordova plugin</description>
+    <author>Roc Lee</author>
+    <keywords>VideoPlayer,video,player,播放器</keywords>
+    <license>Apache 2.0 License</license>
+
+    <engines>
+        <engine name="cordova" version=">=3.0"/>
+    </engines>
+
+    <js-module src="www/videoplayer.js" name="VideoPlayer">
+            <clobbers target="cordova.plugins.VideoPlayer"/>
+    </js-module>
+
+        
+    <!-- android -->
+    <platform name="android">
+    
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="VideoPlayer">
+                <param name="android-package" value="com.phonegap.plugins.video.VideoPlayer"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+ 			<uses-permission android:name="android.permission.INTERNET"/>
+			
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+			<activity android:name="com.phonegap.plugins.video.SimpleVideoPlayerActivity" android:screenOrientation="landscape"
+							  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+							  android:windowSoftInputMode="stateAlwaysHidden"  android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden" android:exported="false">
+					<intent-filter>
+						<action android:name="com.phonegap.plugins.video.SimpleVideoPlayerActivity" />
+						<category android:name="android.intent.category.DEFAULT" />
+					</intent-filter>
+				</activity>
+        </config-file>
+        <source-file src="src/android/SimpleVideoPlayerActivity.java" target-dir="src/com/phonegap/plugins/video"/>
+        <source-file src="src/android/VideoPlayer.java" target-dir="src/com/phonegap/plugins/video"/>
+    	<source-file src="src/android/simple_video_player.xml" target-dir="res/layout"/>
+    </platform>
+</plugin>
